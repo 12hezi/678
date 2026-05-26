@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>廉洁签名大屏</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:微软雅黑}
+        body{
+            width:100vw;
+            height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:linear-gradient(140deg,#f0f8f3,#e4f1eb);
+            flex-direction:column;
+            gap:40px;
+        }
+        .title{font-size:44px;color:#20603f;letter-spacing:6px}
+        .name{font-size:120px;font-weight:bold;color:#16472e;text-shadow:0 0 10px #fff}
+    </style>
+</head>
+<body>
+    <div class="title">廉洁承诺签名公示</div>
+    <div class="name" id="show">等待签名</div>
+
+    <script>
+        const API = "https://api.66api.com/sync/lianjie_12hezi";
+
+        async function load() {
+            try {
+                let res = await fetch(API);
+                let data = await res.json();
+                document.getElementById("show").innerText = data.name || "等待签名";
+            } catch (e) {}
+        }
+
+        // 每秒自动刷新
+        setInterval(load, 1000);
+        load();
+    </script>
+</body>
+</html>
